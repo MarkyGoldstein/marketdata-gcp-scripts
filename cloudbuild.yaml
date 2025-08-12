@@ -1,24 +1,25 @@
 steps:
   # 1. Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA', '.']
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}', '.']
 
   # 2. Push the container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA']
+    args: ['push', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}']
 
   # 3. Deploy to Cloud Run
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk' # <-- CORRECTED: This hyphen is now aligned
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - 'marketdata-gcp-scripts'
+      - '${_SERVICE_NAME}'
       - '--image'
-      - '...'
+      # <-- CORRECTED: Replaced '...' with the full image path for clarity
+      - '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}'
       - '--region'
-      - 'europe-west6'
-      - '--allow-unauthenticated' # Add this flag
+      - '${_REGION}'
+      - '--allow-unauthenticated'
 
 # --- The modern, secure configuration ---
 
@@ -33,6 +34,6 @@ options:
 # You can set these in your Trigger configuration.
 substitutions:
   _SERVICE_NAME: 'marketdata-gcp-scripts'
-  _REGION: 'europe-west6' # Example: Zürich
+  _REGION: 'europe-west6'
   _REPO_NAME: 'cloud-run-source-deploy'
   _IMAGE_NAME: 'marketdata-gcp-scripts-image'
