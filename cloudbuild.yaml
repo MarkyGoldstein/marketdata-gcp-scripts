@@ -1,24 +1,18 @@
 steps:
-# This single step performs all actions and includes debugging output.
+# This single step performs both the submodule checkout and the docker build.
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
-    # Exit immediately if a command fails
-    set -e
-
-    echo "--- Initializing submodule ---"
+    # First, initialize the submodule to fetch the source code
     git submodule update --init --recursive
 
-    echo "--- DEBUG: Listing contents of gcr-cleaner directory ---"
-    ls -laR gcr-cleaner
-
-    echo "--- Starting docker build ---"
-    # Change into the submodule's directory and build from there.
-    cd gcr-cleaner && docker build \
+    # Then, run the docker build using the correct path to the cli.dockerfile
+    docker build \
       -t 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest' \
-      .
+      --file gcr-cleaner/docker/cli.dockerfile \
+      gcr-cleaner/
 
 # Explicitly declare the image that this build produces.
 images:
