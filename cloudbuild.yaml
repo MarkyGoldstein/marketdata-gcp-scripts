@@ -1,10 +1,24 @@
+# Define a named volume called 'ws' that will persist the /workspace directory
+# across all build steps.
+volumes:
+- name: 'ws'
+  path: '/workspace'
+
 steps:
-# Step 1: Initialize the git submodule to fetch the gcr-cleaner source code.
+# Step 1: Initialize the git submodule.
+# Mount the shared volume 'ws' to this step's /workspace.
 - name: 'gcr.io/cloud-builders/git'
+  volumes:
+  - name: 'ws'
+    path: '/workspace'
   args: ['submodule', 'update', '--init', '--recursive']
 
-# Step 2: Build the gcr-cleaner image from the submodule source.
+# Step 2: Build the image from the now-populated submodule source.
+# Mount the same shared volume 'ws' to this step's /workspace.
 - name: 'gcr.io/cloud-builders/docker'
+  volumes:
+  - name: 'ws'
+    path: '/workspace'
   args:
     - 'build'
     - '-t'
