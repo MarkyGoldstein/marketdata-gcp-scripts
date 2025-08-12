@@ -8,11 +8,12 @@ steps:
     # First, initialize the submodule to fetch the source code
     git submodule update --init --recursive
 
-    # Then, run the docker build using the correct path to the cli.dockerfile
-    docker build \
+    # Then, run the docker build using the correct path and the new build-arg
+    cd gcr-cleaner && docker build \
+      --build-arg BUILDPLATFORM=linux/amd64 \
       -t 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest' \
-      --file gcr-cleaner/docker/cli.dockerfile \
-      gcr-cleaner/
+      --file docker/cli.dockerfile \
+      .
 
 # Explicitly declare the image that this build produces.
 images:
