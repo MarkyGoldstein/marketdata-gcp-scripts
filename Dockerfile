@@ -3,7 +3,7 @@
 FROM google/cloud-sdk:latest
 
 # Copy your script into the container's filesystem.
-COPY prune-images.sh /app/prune-images.sh
+COPY prune-old-images.sh /app/prune-old-images.sh
 
 # Set the entrypoint for the container. This command will run when
 # the Cloud Run job starts.
