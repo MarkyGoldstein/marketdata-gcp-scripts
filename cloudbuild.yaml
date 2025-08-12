@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['version']
+
+# The serviceAccount line is gone. 
+# Cloud Build will now use the default account.
+# You also no longer need the 'options' for logging.
