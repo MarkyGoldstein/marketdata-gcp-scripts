@@ -1,16 +1,1020 @@
-# cloudbuild.yaml
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'build'
-    - '-t'
-    - 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
-    # Use the Dockerfile from inside the gcr-cleaner submodule directory
-    - '--file'
-    - 'gcr-cleaner/Dockerfile'
-    # Set the build context to the gcr-cleaner submodule directory
-    - 'gcr-cleaner/'
+^[[A^[[AERROR: (gcloud.iam.service-accounts.add-iam-policy-binding) You do not currently have an active account selected.
+Please run:
 
-# Explicitly declare the image that this build produces
-images:
-- 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
+  $ gcloud auth login
+
+to obtain new credentials.
+
+If you have already logged in with a different account, run:
+
+  $ gcloud config set account ACCOUNT
+
+to select an already authenticated account to use.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ 
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud projects add-iam-policy-binding crm-incoming-data-and-enrich   --member="serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com"   --role="roles/logging.logWriter"
+ [1] EXPRESSION=request.time < timestamp("2025-08-12T10:36:07.438Z"), TITLE=cloudbuild-connection-setup
+ [2] None
+ [3] Specify a new condition
+The policy contains bindings with conditions, so specifying a condition is required when adding a binding. Please specify a condition.:  2
+
+Updated IAM policy for project [crm-incoming-data-and-enrich].
+bindings:
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-vertex-nb.iam.gserviceaccount.com
+  role: roles/aiplatform.colabServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-aiplatform-vm.iam.gserviceaccount.com
+  role: roles/aiplatform.notebookServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-aiplatform.iam.gserviceaccount.com
+  role: roles/aiplatform.serviceAgent
+- members:
+  - serviceAccount:appsheet-ai-processor-servacct@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/aiplatform.user
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-artifactregistry.iam.gserviceaccount.com
+  role: roles/artifactregistry.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/artifactregistry.writer
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.admin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.dataEditor
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.dataOwner
+- members:
+  - serviceAccount:bq-dts-writer@fivetran-bq-dts.iam.gserviceaccount.com
+  - serviceAccount:crm-incoming-data-and-enrich@appspot.gserviceaccount.com
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/bigquery.jobUser
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-bigquerydatatransfer.iam.gserviceaccount.com
+  role: roles/bigquerydatatransfer.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudaicompanion.iam.gserviceaccount.com
+  role: roles/cloudaicompanion.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:140458710440@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/cloudbuild.builds.editor
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.admin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.developer
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:appsheet-ai-processor-servacct@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:marky-goldstein-takatoya-io-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - user:marky.goldstein@gmail.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.invoker
+- members:
+  - serviceAccount:service-140458710440@gcf-admin-robot.iam.gserviceaccount.com
+  role: roles/cloudfunctions.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.viewer
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/cloudtasks.enqueuer
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:service-140458710440@gcp-sa-cloudtasks.iam.gserviceaccount.com
+  role: roles/cloudtasks.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/connectors.admin
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  role: roles/connectors.customConnectorAdmin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  role: roles/connectors.invoker
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-connectors.iam.gserviceaccount.com
+  role: roles/connectors.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/connectors.viewer
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/container.defaultNodeServiceAccount
+- members:
+  - serviceAccount:service-140458710440@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-140458710440@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/dataconnectors.connectorAdmin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/dataconnectors.connectorUser
+- members:
+  - serviceAccount:service-140458710440@dataflow-service-producer-prod.iam.gserviceaccount.com
+  role: roles/dataflow.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/dataform.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataplex.iam.gserviceaccount.com
+  role: roles/dataplex.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/datastore.user
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/datastore.viewer
+- members:
+  - group:crm-market-ingest-and-enrich---dev-group@googlegroups.com
+  role: roles/editor
+- members:
+  - serviceAccount:service-140458710440@firebase-rules.iam.gserviceaccount.com
+  role: roles/firebaserules.system
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-firestore.iam.gserviceaccount.com
+  role: roles/firestore.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/integrations.apigeeIntegrationInvokerRole
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/integrations.integrationInvoker
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:marketdata-app-runtime-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/logging.logWriter
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/logging.viewer
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-monitoring-notification.iam.gserviceaccount.com
+  role: roles/monitoring.notificationServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-notebooks.iam.gserviceaccount.com
+  role: roles/notebooks.serviceAgent
+- members:
+  - user:marky.goldstein@gmail.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/owner
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/resourcemanager.projectIamAdmin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/resourcemanager.projectMover
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/run.admin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/run.builder
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:service-140458710440@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- condition:
+    expression: request.time < timestamp("2025-08-12T10:36:07.438Z")
+    title: cloudbuild-connection-setup
+  members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/workflows.editor
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/workflows.invoker
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-workflows.iam.gserviceaccount.com
+  role: roles/workflows.serviceAgent
+etag: BwY8Ku6Tjng=
+version: 3
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud iam service-accounts add-iam-policy-binding \                                                                                                                                                     
+  140458710440-compute@developer.gserviceaccount.com \
+  --member="serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountUser" \
+  --project="crm-incoming-data-and-enrich"
+Updated IAM policy for serviceAccount [140458710440-compute@developer.gserviceaccount.com].
+bindings:
+- members:
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+etag: BwY8KwHRn90=
+version: 1
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud iam service-accounts create image-cleaner-sa \
+  --display-name="Image Cleaner Service Account" \
+  --project="crm-incoming-data-and-enrich"
+Created service account [image-cleaner-sa].
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud projects add-iam-policy-binding crm-incoming-data-and-enrich \
+  --member="serviceAccount:image-cleaner-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com" \
+  --role="roles/artifactregistry.admin"
+ [1] EXPRESSION=request.time < timestamp("2025-08-12T10:36:07.438Z"), TITLE=cloudbuild-connection-setup
+ [2] None
+ [3] Specify a new condition
+The policy contains bindings with conditions, so specifying a condition is required when adding a binding. Please specify a condition.:  2
+
+Updated IAM policy for project [crm-incoming-data-and-enrich].
+bindings:
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-vertex-nb.iam.gserviceaccount.com
+  role: roles/aiplatform.colabServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-aiplatform-vm.iam.gserviceaccount.com
+  role: roles/aiplatform.notebookServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-aiplatform.iam.gserviceaccount.com
+  role: roles/aiplatform.serviceAgent
+- members:
+  - serviceAccount:appsheet-ai-processor-servacct@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/aiplatform.user
+- members:
+  - serviceAccount:image-cleaner-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/artifactregistry.admin
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-artifactregistry.iam.gserviceaccount.com
+  role: roles/artifactregistry.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/artifactregistry.writer
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.admin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.dataEditor
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/bigquery.dataOwner
+- members:
+  - serviceAccount:bq-dts-writer@fivetran-bq-dts.iam.gserviceaccount.com
+  - serviceAccount:crm-incoming-data-and-enrich@appspot.gserviceaccount.com
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/bigquery.jobUser
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-bigquerydatatransfer.iam.gserviceaccount.com
+  role: roles/bigquerydatatransfer.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudaicompanion.iam.gserviceaccount.com
+  role: roles/cloudaicompanion.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:140458710440@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/cloudbuild.builds.editor
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.admin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.developer
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:appsheet-ai-processor-servacct@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:marky-goldstein-takatoya-io-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - user:marky.goldstein@gmail.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.invoker
+- members:
+  - serviceAccount:service-140458710440@gcf-admin-robot.iam.gserviceaccount.com
+  role: roles/cloudfunctions.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/cloudfunctions.viewer
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/cloudtasks.enqueuer
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:service-140458710440@gcp-sa-cloudtasks.iam.gserviceaccount.com
+  role: roles/cloudtasks.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/connectors.admin
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  role: roles/connectors.customConnectorAdmin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  role: roles/connectors.invoker
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-connectors.iam.gserviceaccount.com
+  role: roles/connectors.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/connectors.viewer
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/container.defaultNodeServiceAccount
+- members:
+  - serviceAccount:service-140458710440@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-140458710440@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/dataconnectors.connectorAdmin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/dataconnectors.connectorUser
+- members:
+  - serviceAccount:service-140458710440@dataflow-service-producer-prod.iam.gserviceaccount.com
+  role: roles/dataflow.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/dataform.serviceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataplex.iam.gserviceaccount.com
+  role: roles/dataplex.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:team-998091-245266f80fb84914b5@appsheet-prod-service-accounts.iam.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/datastore.user
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/datastore.viewer
+- members:
+  - group:crm-market-ingest-and-enrich---dev-group@googlegroups.com
+  role: roles/editor
+- members:
+  - serviceAccount:service-140458710440@firebase-rules.iam.gserviceaccount.com
+  role: roles/firebaserules.system
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-firestore.iam.gserviceaccount.com
+  role: roles/firestore.serviceAgent
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/integrations.apigeeIntegrationInvokerRole
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/integrations.integrationInvoker
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  - serviceAccount:marketdata-app-runtime-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/logging.logWriter
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/logging.viewer
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-monitoring-notification.iam.gserviceaccount.com
+  role: roles/monitoring.notificationServiceAgent
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-notebooks.iam.gserviceaccount.com
+  role: roles/notebooks.serviceAgent
+- members:
+  - user:marky.goldstein@gmail.com
+  - user:marky.goldstein@takatoya.io
+  role: roles/owner
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/resourcemanager.projectIamAdmin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/resourcemanager.projectMover
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/run.admin
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  role: roles/run.builder
+- members:
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:service-140458710440@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- condition:
+    expression: request.time < timestamp("2025-08-12T10:36:07.438Z")
+    title: cloudbuild-connection-setup
+  members:
+  - serviceAccount:service-140458710440@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-dataform.iam.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - user:marky.goldstein@takatoya.io
+  role: roles/workflows.editor
+- members:
+  - serviceAccount:140458710440-compute@developer.gserviceaccount.com
+  - serviceAccount:google-sheet-worker-service-ac@crm-incoming-data-and-enrich.iam.gserviceaccount.com
+  role: roles/workflows.invoker
+- members:
+  - serviceAccount:service-140458710440@gcp-sa-workflows.iam.gserviceaccount.com
+  role: roles/workflows.serviceAgent
+etag: BwY8KzmuR9o=
+version: 3
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud run jobs add-iam-policy-binding image-cleaner-job \
+    --project="crm-incoming-data-and-enrich" \
+    --region="europe-west6" \
+    --member="serviceAccount:image-cleaner-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com" \
+    --role="roles/run.invoker"
+ERROR: (gcloud.run.jobs.add-iam-policy-binding) NOT_FOUND: Resource 'image-cleaner-job' of kind 'JOB' in region 'europe-west6' in project 'crm-incoming-data-and-enrich' does not exist. This command is authenticated as marky.goldstein@takatoya.io which is the active account specified by the [core/account] property.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud run jobs create image-cleaner-job \
+  --project="crm-incoming-data-and-enrich" \
+  --region="europe-west6" \
+  --image="gcr.io/gcp-project/gcr-cleaner" \
+  --service-account="image-cleaner-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com" \
+  --args="--repository=projects/crm-incoming-data-and-enrich/locations/europe-west6/repositories/cloud-run-source-deploy" \
+  --args="--keep=1"
+Creating Cloud Run job [image-cleaner-job] in project [crm-incoming-data-and-enrich] region [europe-west6]
+X  Creating job... Google Cloud Run Service Agent service-140458710440@serverless-robot-prod.iam.gserviceaccount.com must have permission to read the image, gcr.io/gcp-project/gcr-cleaner. Ensure that the provided container image URL is correct and that the abo
+ve account has permission to access the image. If you just enabled the Cloud Run API, the permissions might take a few minutes to propagate. Note that the image is from project [gcp-project], which is not the same as this project [crm-incoming-data-and-enrich].
+ Permission must be granted to the Google Cloud Run Service Agent service-140458710440@serverless-robot-prod.iam.gserviceaccount.com from this project. See https://cloud.google.com/run/docs/deploying#other-projects                                               
+ Cause: 403 Forbidden
+GET https://gcr.io/v2/gc
+p-project/gcr-cleaner/manifests/latest                                                                                                                                                                                                                               
+{"errors":[{"code":"DENIED","message":"Caller does not have permission or the resource may not exist 'read'. To configure permissions, follow instructions at: https://cloud.google.com/container-registry/docs/access-control
+"}]}                                                                                                                                                                                                                                                                 
+Job failed to deploy                                                                                                                                                                                                                                                 
+ERROR: (gcloud.run.jobs.create) Google Cloud Run Service Agent service-140458710440@serverless-robot-prod.iam.gserviceaccount.com must have permission to read the image, gcr.io/gcp-project/gcr-cleaner. Ensure that the provided container image URL is correct and that the above account has permission to access the image. If you just enabled the Cloud Run API, the permissions might take a few minutes to propagate. Note that the image is from project [gcp-project], which is not the same as this project [crm-incoming-data-and-enrich]. Permission must be granted to the Google Cloud Run Service Agent service-140458710440@serverless-robot-prod.iam.gserviceaccount.com from this project. See https://cloud.google.com/run/docs/deploying#other-projects
+ Cause: 403 Forbidden
+GET https://gcr.io/v2/gcp-project/gcr-cleaner/manifests/latest
+{"errors":[{"code":"DENIED","message":"Caller does not have permission or the resource may not exist 'read'. To configure permissions, follow instructions at: https://cloud.google.com/container-registry/docs/access-control"}]}
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud storage buckets add-iam-policy-binding gs://artifacts.gcp-project.appspot.com \
+  --member="serviceAccount:service-140458710440@serverless-robot-prod.iam.gserviceaccount.com" \
+  --role="roles/storage.objectViewer"
+ERROR: (gcloud.storage.buckets.add-iam-policy-binding) gs://artifacts.gcp-project.appspot.com not found: 404.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud auth configure-docker europe-west6-docker.pkg.dev
+WARNING: Your config file at [/home/marky_goldstein/.docker/config.json] contains these credential helper entries:
+
+{
+  "credHelpers": {
+    "gcr.io": "gcloud",
+    "us.gcr.io": "gcloud",
+    "eu.gcr.io": "gcloud",
+    "asia.gcr.io": "gcloud",
+    "staging-k8s.gcr.io": "gcloud",
+    "marketplace.gcr.io": "gcloud",
+    "africa-south1-docker.pkg.dev": "gcloud",
+    "docker.africa-south1.rep.pkg.dev": "gcloud",
+    "asia-docker.pkg.dev": "gcloud",
+    "asia-east1-docker.pkg.dev": "gcloud",
+    "docker.asia-east1.rep.pkg.dev": "gcloud",
+    "asia-east2-docker.pkg.dev": "gcloud",
+    "docker.asia-east2.rep.pkg.dev": "gcloud",
+    "asia-northeast1-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast1.rep.pkg.dev": "gcloud",
+    "asia-northeast2-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast2.rep.pkg.dev": "gcloud",
+    "asia-northeast3-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast3.rep.pkg.dev": "gcloud",
+    "asia-south1-docker.pkg.dev": "gcloud",
+    "docker.asia-south1.rep.pkg.dev": "gcloud",
+    "asia-south2-docker.pkg.dev": "gcloud",
+    "docker.asia-south2.rep.pkg.dev": "gcloud",
+    "asia-southeast1-docker.pkg.dev": "gcloud",
+    "docker.asia-southeast1.rep.pkg.dev": "gcloud",
+    "asia-southeast2-docker.pkg.dev": "gcloud",
+    "docker.asia-southeast2.rep.pkg.dev": "gcloud",
+    "australia-southeast1-docker.pkg.dev": "gcloud",
+    "docker.australia-southeast1.rep.pkg.dev": "gcloud",
+    "australia-southeast2-docker.pkg.dev": "gcloud",
+    "docker.australia-southeast2.rep.pkg.dev": "gcloud",
+    "europe-docker.pkg.dev": "gcloud",
+    "europe-central2-docker.pkg.dev": "gcloud",
+    "docker.europe-central2.rep.pkg.dev": "gcloud",
+    "europe-north1-docker.pkg.dev": "gcloud",
+    "docker.europe-north1.rep.pkg.dev": "gcloud",
+    "europe-north2-docker.pkg.dev": "gcloud",
+    "europe-southwest1-docker.pkg.dev": "gcloud",
+    "docker.europe-southwest1.rep.pkg.dev": "gcloud",
+    "europe-west1-docker.pkg.dev": "gcloud",
+    "docker.europe-west1.rep.pkg.dev": "gcloud",
+    "europe-west10-docker.pkg.dev": "gcloud",
+    "docker.europe-west10.rep.pkg.dev": "gcloud",
+    "europe-west12-docker.pkg.dev": "gcloud",
+    "docker.europe-west12.rep.pkg.dev": "gcloud",
+    "europe-west2-docker.pkg.dev": "gcloud",
+    "docker.europe-west2.rep.pkg.dev": "gcloud",
+    "europe-west3-docker.pkg.dev": "gcloud",
+    "docker.europe-west3.rep.pkg.dev": "gcloud",
+    "europe-west4-docker.pkg.dev": "gcloud",
+    "docker.europe-west4.rep.pkg.dev": "gcloud",
+    "europe-west6-docker.pkg.dev": "gcloud",
+    "docker.europe-west6.rep.pkg.dev": "gcloud",
+    "europe-west8-docker.pkg.dev": "gcloud",
+    "docker.europe-west8.rep.pkg.dev": "gcloud",
+    "europe-west9-docker.pkg.dev": "gcloud",
+    "docker.europe-west9.rep.pkg.dev": "gcloud",
+    "me-central1-docker.pkg.dev": "gcloud",
+    "docker.me-central1.rep.pkg.dev": "gcloud",
+    "me-central2-docker.pkg.dev": "gcloud",
+    "docker.me-central2.rep.pkg.dev": "gcloud",
+    "me-west1-docker.pkg.dev": "gcloud",
+    "docker.me-west1.rep.pkg.dev": "gcloud",
+    "northamerica-northeast1-docker.pkg.dev": "gcloud",
+    "docker.northamerica-northeast1.rep.pkg.dev": "gcloud",
+    "northamerica-northeast2-docker.pkg.dev": "gcloud",
+    "docker.northamerica-northeast2.rep.pkg.dev": "gcloud",
+    "northamerica-south1-docker.pkg.dev": "gcloud",
+    "southamerica-east1-docker.pkg.dev": "gcloud",
+    "docker.southamerica-east1.rep.pkg.dev": "gcloud",
+    "southamerica-west1-docker.pkg.dev": "gcloud",
+    "docker.southamerica-west1.rep.pkg.dev": "gcloud",
+    "us-docker.pkg.dev": "gcloud",
+    "us-central1-docker.pkg.dev": "gcloud",
+    "docker.us-central1.rep.pkg.dev": "gcloud",
+    "us-central2-docker.pkg.dev": "gcloud",
+    "docker.us-central2.rep.pkg.dev": "gcloud",
+    "us-east1-docker.pkg.dev": "gcloud",
+    "docker.us-east1.rep.pkg.dev": "gcloud",
+    "us-east4-docker.pkg.dev": "gcloud",
+    "docker.us-east4.rep.pkg.dev": "gcloud",
+    "us-east5-docker.pkg.dev": "gcloud",
+    "docker.us-east5.rep.pkg.dev": "gcloud",
+    "us-east7-docker.pkg.dev": "gcloud",
+    "docker.us-east7.rep.pkg.dev": "gcloud",
+    "us-south1-docker.pkg.dev": "gcloud",
+    "docker.us-south1.rep.pkg.dev": "gcloud",
+    "us-west1-docker.pkg.dev": "gcloud",
+    "docker.us-west1.rep.pkg.dev": "gcloud",
+    "us-west2-docker.pkg.dev": "gcloud",
+    "docker.us-west2.rep.pkg.dev": "gcloud",
+    "us-west3-docker.pkg.dev": "gcloud",
+    "docker.us-west3.rep.pkg.dev": "gcloud",
+    "us-west4-docker.pkg.dev": "gcloud",
+    "docker.us-west4.rep.pkg.dev": "gcloud",
+    "us-west8-docker.pkg.dev": "gcloud"
+  }
+}
+Adding credentials for: europe-west6-docker.pkg.dev
+gcloud credential helpers already registered correctly.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ docker tag gcr.io/gcp-project/gcr-cleaner:latest \
+  europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest
+Error response from daemon: No such image: gcr.io/gcp-project/gcr-cleaner:latest
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ gcloud auth configure-docker europe-west6-docker.pkg.dev
+WARNING: Your config file at [/home/marky_goldstein/.docker/config.json] contains these credential helper entries:
+
+{
+  "credHelpers": {
+    "gcr.io": "gcloud",
+    "us.gcr.io": "gcloud",
+    "eu.gcr.io": "gcloud",
+    "asia.gcr.io": "gcloud",
+    "staging-k8s.gcr.io": "gcloud",
+    "marketplace.gcr.io": "gcloud",
+    "africa-south1-docker.pkg.dev": "gcloud",
+    "docker.africa-south1.rep.pkg.dev": "gcloud",
+    "asia-docker.pkg.dev": "gcloud",
+    "asia-east1-docker.pkg.dev": "gcloud",
+    "docker.asia-east1.rep.pkg.dev": "gcloud",
+    "asia-east2-docker.pkg.dev": "gcloud",
+    "docker.asia-east2.rep.pkg.dev": "gcloud",
+    "asia-northeast1-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast1.rep.pkg.dev": "gcloud",
+    "asia-northeast2-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast2.rep.pkg.dev": "gcloud",
+    "asia-northeast3-docker.pkg.dev": "gcloud",
+    "docker.asia-northeast3.rep.pkg.dev": "gcloud",
+    "asia-south1-docker.pkg.dev": "gcloud",
+    "docker.asia-south1.rep.pkg.dev": "gcloud",
+    "asia-south2-docker.pkg.dev": "gcloud",
+    "docker.asia-south2.rep.pkg.dev": "gcloud",
+    "asia-southeast1-docker.pkg.dev": "gcloud",
+    "docker.asia-southeast1.rep.pkg.dev": "gcloud",
+    "asia-southeast2-docker.pkg.dev": "gcloud",
+    "docker.asia-southeast2.rep.pkg.dev": "gcloud",
+    "australia-southeast1-docker.pkg.dev": "gcloud",
+    "docker.australia-southeast1.rep.pkg.dev": "gcloud",
+    "australia-southeast2-docker.pkg.dev": "gcloud",
+    "docker.australia-southeast2.rep.pkg.dev": "gcloud",
+    "europe-docker.pkg.dev": "gcloud",
+    "europe-central2-docker.pkg.dev": "gcloud",
+    "docker.europe-central2.rep.pkg.dev": "gcloud",
+    "europe-north1-docker.pkg.dev": "gcloud",
+    "docker.europe-north1.rep.pkg.dev": "gcloud",
+    "europe-north2-docker.pkg.dev": "gcloud",
+    "europe-southwest1-docker.pkg.dev": "gcloud",
+    "docker.europe-southwest1.rep.pkg.dev": "gcloud",
+    "europe-west1-docker.pkg.dev": "gcloud",
+    "docker.europe-west1.rep.pkg.dev": "gcloud",
+    "europe-west10-docker.pkg.dev": "gcloud",
+    "docker.europe-west10.rep.pkg.dev": "gcloud",
+    "europe-west12-docker.pkg.dev": "gcloud",
+    "docker.europe-west12.rep.pkg.dev": "gcloud",
+    "europe-west2-docker.pkg.dev": "gcloud",
+    "docker.europe-west2.rep.pkg.dev": "gcloud",
+    "europe-west3-docker.pkg.dev": "gcloud",
+    "docker.europe-west3.rep.pkg.dev": "gcloud",
+    "europe-west4-docker.pkg.dev": "gcloud",
+    "docker.europe-west4.rep.pkg.dev": "gcloud",
+    "europe-west6-docker.pkg.dev": "gcloud",
+    "docker.europe-west6.rep.pkg.dev": "gcloud",
+    "europe-west8-docker.pkg.dev": "gcloud",
+    "docker.europe-west8.rep.pkg.dev": "gcloud",
+    "europe-west9-docker.pkg.dev": "gcloud",
+    "docker.europe-west9.rep.pkg.dev": "gcloud",
+    "me-central1-docker.pkg.dev": "gcloud",
+    "docker.me-central1.rep.pkg.dev": "gcloud",
+    "me-central2-docker.pkg.dev": "gcloud",
+    "docker.me-central2.rep.pkg.dev": "gcloud",
+    "me-west1-docker.pkg.dev": "gcloud",
+    "docker.me-west1.rep.pkg.dev": "gcloud",
+    "northamerica-northeast1-docker.pkg.dev": "gcloud",
+    "docker.northamerica-northeast1.rep.pkg.dev": "gcloud",
+    "northamerica-northeast2-docker.pkg.dev": "gcloud",
+    "docker.northamerica-northeast2.rep.pkg.dev": "gcloud",
+    "northamerica-south1-docker.pkg.dev": "gcloud",
+    "southamerica-east1-docker.pkg.dev": "gcloud",
+    "docker.southamerica-east1.rep.pkg.dev": "gcloud",
+    "southamerica-west1-docker.pkg.dev": "gcloud",
+    "docker.southamerica-west1.rep.pkg.dev": "gcloud",
+    "us-docker.pkg.dev": "gcloud",
+    "us-central1-docker.pkg.dev": "gcloud",
+    "docker.us-central1.rep.pkg.dev": "gcloud",
+    "us-central2-docker.pkg.dev": "gcloud",
+    "docker.us-central2.rep.pkg.dev": "gcloud",
+    "us-east1-docker.pkg.dev": "gcloud",
+    "docker.us-east1.rep.pkg.dev": "gcloud",
+    "us-east4-docker.pkg.dev": "gcloud",
+    "docker.us-east4.rep.pkg.dev": "gcloud",
+    "us-east5-docker.pkg.dev": "gcloud",
+    "docker.us-east5.rep.pkg.dev": "gcloud",
+    "us-east7-docker.pkg.dev": "gcloud",
+    "docker.us-east7.rep.pkg.dev": "gcloud",
+# copy-image.yaml
+    "us-south1-docker.pkg.dev": "gcloud",
+    "docker.us-south1.rep.pkg.dev": "gcloud",
+    "us-west1-docker.pkg.dev": "gcloud",
+    "docker.us-west1.rep.pkg.dev": "gcloud",
+    "us-west2-docker.pkg.dev": "gcloud",
+    "docker.us-west2.rep.pkg.dev": "gcloud",
+    "us-west3-docker.pkg.dev": "gcloud",
+    "docker.us-west3.rep.pkg.dev": "gcloud",
+    "us-west4-docker.pkg.dev": "gcloud",
+    "docker.us-west4.rep.pkg.dev": "gcloud",
+    "us-west8-docker.pkg.dev": "gcloud"
+  }
+}
+Adding credentials for: europe-west6-docker.pkg.dev
+gcloud credential helpers already registered correctly.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ docker pull gcr.io/gcp-project/gcr-cleaner:latest
+Error response from daemon: Head "https://gcr.io/v2/gcp-project/gcr-cleaner/manifests/latest": denied: Caller does not have permission or the resource may not exist 'read'. To configure permissions, follow instructions at: https://cloud.google.com/container-registry/docs/access-control
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ cd ..
+marky_goldstein@cloudshell:/home (crm-incoming-data-and-enrich)$ pwd
+/home
+marky_goldstein@cloudshell:/home (crm-incoming-data-and-enrich)$ ls
+lost+found  marky_goldstein
+marky_goldstein@cloudshell:/home (crm-incoming-data-and-enrich)$ cd marky_goldstein/
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ ls
+crm-marketdata-appsheet-api  crm-marketdata-enrich  crm-marketdata-enrich-enrichcolumn  final-source-deployment  get-crmmarketdata-sheet-as-json  gopath  README-cloudshell.txt
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ mkdir gcr-cleaner
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ cd gcr-cleaner/
+marky_goldstein@cloudshell:~/gcr-cleaner (crm-incoming-data-and-enrich)$ ls
+marky_goldstein@cloudshell:~/gcr-cleaner (crm-incoming-data-and-enrich)$ vi copy-image.yaml
+marky_goldstein@cloudshell:~/gcr-cleaner (crm-incoming-data-and-enrich)$ gcloud builds submit --config=copy-image.yaml . --project="crm-incoming-data-and-enrich"
+Creating temporary archive of 1 file(s) totalling 240 bytes before compression.
+Uploading tarball of [.] to [gs://crm-incoming-data-and-enrich_cloudbuild/source/1755006761.945413-0b9418a2b169440ea1b46e881b319d3b.tgz]
+Created [https://cloudbuild.googleapis.com/v1/projects/crm-incoming-data-and-enrich/locations/global/builds/d4c8796b-88ae-4134-ad24-3874b795502f].
+Logs are available at [ https://console.cloud.google.com/cloud-build/builds/d4c8796b-88ae-4134-ad24-3874b795502f?project=140458710440 ].
+Waiting for build to complete. Polling interval: 1 second(s).
+------------------------------------------------------------------------------------------------------------------------ REMOTE BUILD OUTPUT -------------------------------------------------------------------------------------------------------------------------
+starting build "d4c8796b-88ae-4134-ad24-3874b795502f"
+
+FETCHSOURCE
+Fetching storage object: gs://crm-incoming-data-and-enrich_cloudbuild/source/1755006761.945413-0b9418a2b169440ea1b46e881b319d3b.tgz#1755006762521084
+Copying gs://crm-incoming-data-and-enrich_cloudbuild/source/1755006761.945413-0b9418a2b169440ea1b46e881b319d3b.tgz#1755006762521084...
+/ [1 files][  339.0 B/  339.0 B]                                                
+Operation completed over 1 objects/339.0 B.
+BUILD
+Pulling image: gcr.io/go-containerregistry/gcrane
+Using default tag: latest
+latest: Pulling from go-containerregistry/gcrane
+Digest: sha256:c0cf52c2bd8c636bbf701c6c74c5ff819447d384dc957d52a52a668de63e8f5d
+Status: Downloaded newer image for gcr.io/go-containerregistry/gcrane:latest
+gcr.io/go-containerregistry/gcrane:latest
+2025/08/12 13:52:49 Copying from gcr.io/gcp-project/gcr-cleaner:latest to europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest
+Error: fetching "gcr.io/gcp-project/gcr-cleaner:latest": GET https://gcr.io/v2/token?scope=repository%3Agcp-project%2Fgcr-cleaner%3Apull&service=gcr.io: DENIED: Caller does not have permission or the resource may not exist 'read'. To configure permissions, follow instructions at: https://cloud.google.com/container-registry/docs/access-control
+ERROR
+ERROR: build step 0 "gcr.io/go-containerregistry/gcrane" failed: step exited with non-zero status: 1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+BUILD FAILURE: Build step failure: build step 0 "gcr.io/go-containerregistry/gcrane" failed: step exited with non-zero status: 1
+ERROR: (gcloud.builds.submit) build d4c8796b-88ae-4134-ad24-3874b795502f completed with status "FAILURE"
+marky_goldstein@cloudshell:~/gcr-cleaner (crm-incoming-data-and-enrich)$ cd ..
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ ls
+crm-marketdata-appsheet-api  crm-marketdata-enrich  crm-marketdata-enrich-enrichcolumn  final-source-deployment  gcr-cleaner  get-crmmarketdata-sheet-as-json  gopath  README-cloudshell.txt
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ ls
+crm-marketdata-appsheet-api  crm-marketdata-enrich  crm-marketdata-enrich-enrichcolumn  final-source-deployment  gcr-cleaner  get-crmmarketdata-sheet-as-json  gopath  README-cloudshell.txt
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ git clone https://github.com/MarkyGoldstein/marketdata-gcp-scripts
+Cloning into 'marketdata-gcp-scripts'...
+remote: Enumerating objects: 21, done.
+remote: Counting objects: 100% (21/21), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 21 (delta 7), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (21/21), 7.81 KiB | 1.95 MiB/s, done.
+Resolving deltas: 100% (7/7), done.
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ ls
+crm-marketdata-appsheet-api  crm-marketdata-enrich  crm-marketdata-enrich-enrichcolumn  final-source-deployment  gcr-cleaner  get-crmmarketdata-sheet-as-json  gopath  marketdata-gcp-scripts  README-cloudshell.txt
+marky_goldstein@cloudshell:~ (crm-incoming-data-and-enrich)$ cd marketdata-gcp-scripts/
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ ls
+cloudbuild.yaml  Dockerfile  prune-old-images.sh
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ This error confirms that your project is protected by a high-level security policy, almost certainly VPC Service Controls. This policy is blocking your Cloud Build service account from accessing any Google Cloud service (like gcr.io) that is outside your project's defined security perimeter.
+
+Since you cannot pull or copy the public image into your project, the final solution is to build the gcr-cleaner tool from its source code directly within your project.
+
+## The Root Cause: VPC Service Controls
+A VPC Service Controls perimeter acts like a virtual firewall around your Google Cloud projects. It's an enterprise-grade security feature that prevents data from leaving the perimeter and blocks internal services from contacting resources outside of it. This is why all attempts to fetch the public gcr-cleaner image have failed—your project is not allowed to communicate with the gcr.io service that hosts it.
+
+## ✅ The Final Solution: Build gcr-cleaner from Source
+The strategy is to use Cloud Build as a "software factory" inside your secure perimeter. We will instruct it to:
+
+Fetch the open-source code for gcr-cleaner from GitHub (which is typically allowed).
+
+Use the Dockerfile provided in that source code to build a new container image.
+
+Store that new image in your own Artifact Registry.
+
+This process happens entirely within your project's boundaries, respecting the security policy.
+
+## Step-by-Step Guide
+### Step 1: Add gcr-cleaner Source Code to Your Repository
+The cleanest way to include the gcr-cleaner source is by adding it as a git submodule to your existing marketdata-gcp-scripts repository.
+
+Run these commands from your local machine:
+
+Bash
+
+# Navigate to your git repository directory
+cd /path/to/marketdata-gcp-scripts
+
+git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+-bash: syntax error near unexpected token `('
+-bash: Since: command not found
+-bash: A: command not found
+-bash: The: command not found
+-bash: Run: command not found
+-bash: Bash: command not found
+-bash: cd: /path/to/marketdata-gcp-scripts: No such file or directory
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+Username for 'https://github.com': This error confirms that your project is protected by a high-level security policy, almost certainly VPC Service Controls. This policy is blocking your Cloud Build service account from accessing any Google Cloud service (like gcr.io) that is outside your project's defined security perimeter.
+
+Since you cannot pull or copy the public image into your project, the final solution is to build the gcr-cleaner tool from its source code directly within your project.
+
+## The Root Cause: VPC Service Controls
+A VPC Service Controls perimeter acts like a virtual firewall around your Google Cloud projects. It's an enterprise-grade security feature that prevents data from leaving the perimeter and blocks internal services from contacting resources outside of it. This is why all attempts to fetch the public gcr-cleaner image have failed—your project is not allowed to communicate with the gcr.io service that hosts it.
+
+## ✅ The Final Solution: Build gcr-cleaner from Source
+The strategy is to use Cloud Build as a "software factory" inside your secure perimeter. We will instruct it to:
+
+Fetch the open-source code for gcr-cleaner from GitHub (which is typically allowed).
+
+Use the Dockerfile provided in that source code to build a new container image.
+
+Store that new image in your own Artifact Registry.
+
+This process happens entirely within your project's boundaries, respecting the security policy.
+
+## Step-by-Step Guide
+### Step 1: Add gcr-cleaner Source Code to Your Repository
+The cleanest way to include the gcr-cleaner source is by adding it as a git submodule to your existing marketdata-gcp-scripts repository.
+
+Run these commands from your local machine:
+
+Bash
+
+# Navigate to your git repository directory
+cd /path/to/marketdata-gcp-scripts
+
+# Add the gcr-cleaner repository as a submodule
+git submodule add https://github.com/google-github-actions/gcr-cleaner.gitPassword for 'https://This%20error%20confirms%20that%20your%20project%20is%20protected%20by%20a%20high-level%20security%20policy%2C%20almost%20certainly%20VPC%20Service%20Controls.%20This%20policy%20is%20blocking%20your%20Cloud%20Build%20service%20account%20from%20accessing%20any%20Google%20Cloud%20service%20%28like%20gcr.io%29%20that%20is%20outside%20your%20project%27s%20defined%20security%20perimeter.@github.com': 
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+Username for 'https://github.com': MarkyGoldstein
+Password for 'https://MarkyGoldstein@github.com': 
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/google-github-actions/gcr-cleaner.git/'
+fatal: clone of 'https://github.com/google-github-actions/gcr-cleaner.git' into submodule path '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner' failed
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+Username for 'https://github.com': marky.goldstein@gmail.com
+Password for 'https://marky.goldstein%40gmail.com@github.com': 
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/google-github-actions/gcr-cleaner.git/'
+fatal: clone of 'https://github.com/google-github-actions/gcr-cleaner.git' into submodule path '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner' failed
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ ls
+cloudbuild.yaml  Dockerfile  prune-old-images.sh
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ gh auth login
+? Where do you use GitHub? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Generate a new SSH key to add to your GitHub account? Yes
+? Enter a passphrase for your new SSH key (Optional): ****************
+? Title for your SSH key: GitHub CLI
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: BDC1-4A12
+Press Enter to open https://github.com/login/device in your browser... 
+https://github.com/login/device
+✓ Authentication complete.
+- gh config set -h github.com git_protocol ssh
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Uploaded the SSH key to your GitHub account: /home/marky_goldstein/.ssh/id_ed25519.pub
+✓ Logged in as MarkyGoldstein
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+Username for 'https://github.com': MarkyGoldstein
+Password for 'https://MarkyGoldstein@github.com': 
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/google-github-actions/gcr-cleaner.git/'
+fatal: clone of 'https://github.com/google-github-actions/gcr-cleaner.git' into submodule path '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner' failed
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+Username for 'https://github.com': ^X^C
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ gh auth login
+? Where do you use GitHub? GitHub.com
+? What is your preferred protocol for Git operations on this host? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: 1117-FA32
+Press Enter to open https://github.com/login/device in your browser... 
+https://github.com/login/device
+
+✓ Authentication complete.
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Logged in as MarkyGoldstein
+! You were already logged in to this account
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ 
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/google-github-actions/gcr-cleaner.git
+steps:
+  # 1. Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}', '.']
+
+  # 2. Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}']
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk' # <-- CORRECTED: This hyphen is now aligned
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      # <-- CORRECTED: Replaced '...' with the full image path for clarity
+      - '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:${COMMIT_SHA}'
+      - '--region'
+      - '${_REGION}'
+      - '--allow-unauthenticated'
+
+# --- The modern, secure configuration ---
+
+# 1. Specify the dedicated, least-privilege service account
+serviceAccount: 'projects/crm-incoming-data-and-enrich/serviceAccounts/cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com'
+
+# 2. Specify the logging behavior (required for custom service accounts)
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
+
+# Optional: Define substitutions for cleaner code.
+# You can set these in your Trigger configuration.
+substitutions:
+  _SERVICE_NAME: 'marketdata-gcp-scripts'
+  _REGION: 'europe-west6'
+  _REPO_NAME: 'cloud-run-source-deploy'
+# cloudbuild.yaml
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+remote: Repository not found.
+fatal: repository 'https://github.com/google-github-actions/gcr-cleaner.git/' not found
+fatal: clone of 'https://github.com/google-github-actions/gcr-cleaner.git' into submodule path '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner' failed
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git submodule add https://github.com/GoogleCloudPlatform/gcr-cleaner.git
+Cloning into '/home/marky_goldstein/marketdata-gcp-scripts/gcr-cleaner'...
+remote: Enumerating objects: 1181, done.
+remote: Counting objects: 100% (496/496), done.
+remote: Compressing objects: 100% (140/140), done.
+remote: Total 1181 (delta 377), reused 356 (delta 356), pack-reused 685 (from 1)
+Receiving objects: 100% (1181/1181), 718.68 KiB | 2.83 MiB/s, done.
+Resolving deltas: 100% (515/515), done.
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git add .gitmodules gcr-cleaner
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git commit -m "Add gcr-cleaner as a submodule"
+[main 0704783] Add gcr-cleaner as a submodule
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .gitmodules
+ create mode 160000 gcr-cleaner
+marky_goldstein@cloudshell:~/marketdata-gcp-scripts (crm-incoming-data-and-enrich)$ git push
+Enumerating objects: 4, done.
+s file builds the gcr-cleaner image from the source in the 'gcr-cleaner' submodule.
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+      args:
+            - 'build'
+                  - '-t'
+                        - 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
+                              - '--file'
+                                    - 'gcr-cleaner/Dockerfile'
+                                          - 'gcr-cleaner/'
+
+                                            # Explicitly declare the image that this build produces.
+                                             images:
+                                             - 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
+                                            #
+                                            # # This 'options' block is required when using a custom service account.
+                                            # # It tells Cloud Build where to send the build logs.
+                                            options:
+                                               logging: 'CLOUD_LOGGING_ONLY'
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+~                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                    15,45         All
