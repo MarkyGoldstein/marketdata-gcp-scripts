@@ -1,30 +1,24 @@
 steps:
-# Step 0: Print the contents of this file to the log for debugging.
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    echo "--- Displaying contents of cloudbuild.yaml being used by this trigger ---"
-    cat cloudbuild.yaml
-    echo "-----------------------------------------------------------------------"
-
-# Step 1: Initialize the submodule and build the image.
+# This single step performs both the submodule checkout and the docker build.
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
-    set -e
+    # First, initialize the submodule to fetch the source code
     git submodule update --init --recursive
+
+    # Then, run the docker build using the correct path and the new build-arg
     cd gcr-cleaner && docker build \
       --build-arg BUILDPLATFORM=linux/amd64 \
       -t 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest' \
       --file docker/cli.dockerfile \
       .
 
+# Explicitly declare the image that this build produces.
 images:
 - 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
 
+# This 'options' block is required when using a custom service account.
 options:
   logging: 'CLOUD_LOGGING_ONLY'
