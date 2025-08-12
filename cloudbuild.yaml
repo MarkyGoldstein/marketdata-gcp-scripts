@@ -8,11 +8,11 @@ steps:
     # First, initialize the submodule to fetch the source code
     git submodule update --init --recursive
 
-    # Then, run the docker build command. The files from the submodule are now available.
-    docker build \
+    # Then, change into the submodule's directory and run the build from there.
+    # The '&&' ensures the docker build only runs if the 'cd' is successful.
+    cd gcr-cleaner && docker build \
       -t 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest' \
-      --file gcr-cleaner/Dockerfile \
-      gcr-cleaner/
+      .
 
 # Explicitly declare the image that this build produces.
 images:
