@@ -5,7 +5,7 @@ steps:
   args:
   - '-c'
   - |
-    # First, initialize the submodule to fetch the source code
+    # Firstt, initialize the submodule to fetch the source code
     git submodule update --init --recursive
 
     # Then, run the docker build using the correct path and the new build-arg
