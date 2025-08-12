@@ -1,7 +1,39 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['version']
+  # 1. Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA', '.']
 
-# The serviceAccount line is gone. 
-# Cloud Build will now use the default account.
-# You also no longer need the 'options' for logging.
+  # 2. Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA']
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - '${_REGION}-docker.pkg.dev/crm-incoming-data-and-enrich/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+
+# --- The modern, secure configuration ---
+
+# 1. Specify the dedicated, least-privilege service account
+serviceAccount: 'projects/crm-incoming-data-and-enrich/serviceAccounts/cloud-build-deployer-sa@crm-incoming-data-and-enrich.iam.gserviceaccount.com'
+
+# 2. Specify the logging behavior (required for custom service accounts)
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
+
+# Optional: Define substitutions for cleaner code.
+# You can set these in your Trigger configuration.
+substitutions:
+  _SERVICE_NAME: 'marketdata-gcp-scripts'
+  _REGION: 'europe-west6' # Example: Zürich
+  _REPO_NAME: 'cloud-run-source-deploy'
+  _IMAGE_NAME: 'marketdata-gcp-scripts-image'
