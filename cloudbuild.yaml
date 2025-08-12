@@ -1,14 +1,16 @@
-# This file builds the gcr-cleaner image from the source in the 'gcr-cleaner' submodule.
 steps:
+# Step 1: Initialize the git submodule to fetch the gcr-cleaner source code.
+- name: 'gcr.io/cloud-builders/git'
+  args: ['submodule', 'update', '--init', '--recursive']
+
+# Step 2: Build the gcr-cleaner image from the submodule source.
 - name: 'gcr.io/cloud-builders/docker'
   args:
     - 'build'
     - '-t'
     - 'europe-west6-docker.pkg.dev/crm-incoming-data-and-enrich/cloud-run-source-deploy/gcr-cleaner:latest'
-    # This line must start with '#'
     - '--file'
     - 'gcr-cleaner/Dockerfile'
-    # This line must start with '#'
     - 'gcr-cleaner/'
 
 # Explicitly declare the image that this build produces.
